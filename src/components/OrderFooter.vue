@@ -1,10 +1,8 @@
 <template>
-    <div>
-        aliPay
-    </div>
+    <div>order-footer</div>
 </template>
 <script>
 export default {
-    name: 'ali-pay'
+    name: 'order-footer'
 }
 </script>
