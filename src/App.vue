@@ -5,7 +5,7 @@
 </template>
 
 <script>
-
+import storage from './storage'
 export default {
   name: 'App',
   data() {
@@ -17,7 +17,10 @@ export default {
 
   },
   mounted() {
-
+    // storage.setItem('user', {a:1})
+    // storage.setItem('abc', {a:1}, 'user')
+    // storage.clear('a')
+    storage.clear('a', 'user')
   }
 }
 </script>
