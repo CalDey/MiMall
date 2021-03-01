@@ -15,7 +15,7 @@
                     <a href="javascript:;">我的订单</a>
                     <a href="javascript:;" class="my-cart" @click="goToCart">
                         <span class="icon-cart"></span>
-                        购物车
+                        购物车({{cartCount}})
                     </a>                    
                 </div>
             </div>
@@ -34,7 +34,7 @@
                                 <li class="product" v-for="(item, index) in phoneList" :key="index">
                                     <a :href="'/#/product/' + item.id" target="_blink">
                                         <div class="pro-img">
-                                            <img :src="item.mainImage" :alt="item.subtitle">
+                                            <img v-lazy="item.mainImage" :alt="item.subtitle">
                                         </div>
                                         <div class="pro-name">{{item.name}}</div>
                                         <div class="pro-price">{{item.price | currency}}</div>
@@ -54,7 +54,7 @@
                                 <li class="product">
                                     <a href="" target="_blink">
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-1.jpg" alt="">
+                                            <img v-lazy="'/imgs/nav-img/nav-3-1.jpg'" alt="">
                                         </div>
                                         <div class="pro-name">小米壁画电视 65英寸</div>
                                         <div class="pro-price">6999元</div>
@@ -63,7 +63,7 @@
                                 <li class="product">
                                     <a href="" target="_blink">
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-2.jpg" alt="">
+                                            <img v-lazy="'/imgs/nav-img/nav-3-2.jpg'" alt="">
                                         </div>
                                         <div class="pro-name">小米全面屏电视电视 E55A</div>
                                         <div class="pro-price">1999元</div>
@@ -72,7 +72,7 @@
                                 <li class="product">
                                     <a href="" target="_blink">
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-3.png" alt="">
+                                            <img v-lazy="'/imgs/nav-img/nav-3-3.png'" alt="">
                                         </div>
                                         <div class="pro-name">小米电视4A 32英寸</div>
                                         <div class="pro-price">699元</div>
@@ -81,7 +81,7 @@
                                 <li class="product">
                                     <a href="" target="_blink">
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-4.jpg" alt="">
+                                            <img v-lazy="'/imgs/nav-img/nav-3-4.jpg'" alt="">
                                         </div>
                                         <div class="pro-name">小米电视5A 55英寸</div>
                                         <div class="pro-price">1799元</div>
@@ -90,7 +90,7 @@
                                 <li class="product">
                                     <a href="" target="_blink">
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-5.jpg" alt="">
+                                            <img v-lazy="'/imgs/nav-img/nav-3-5.jpg'" alt="">
                                         </div>
                                         <div class="pro-name">小米电视4A 65英寸</div>
                                         <div class="pro-price">2699元</div>
@@ -99,7 +99,7 @@
                                 <li class="product">
                                     <a href="" target="_blink">
                                         <div class="pro-img">
-                                            <img src="/imgs/nav-img/nav-3-6.png" alt="">
+                                            <img v-lazy="'/imgs/nav-img/nav-3-6.png'" alt="">
                                         </div>
                                         <div class="pro-name">查看全部</div>
                                         <div class="pro-price">查看全部</div>
@@ -120,13 +120,23 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
     name: 'nav-header',
     data () {
         return {
-            // username: 'CalDey',
             phoneList: []
         }
+    },
+    computed: {
+        // 通过计算属性获取username属性
+        // username() {
+        //     return this.$store.state.username;
+        // },
+        // cartCount() {
+        //     return this.$store.state.cartCount;
+        // }
+        ...mapState(['username', 'cartCount'])
     },
     // 过滤器
     filters: {
@@ -184,6 +194,7 @@ export default {
                     background-color: #FF6600;
                     text-align: center;
                     color: #ffffff;
+                    margin-right: 0;
                     .icon-cart {
                         @include bgImg(16px,12px,'/imgs/icon-cart-checked.png');
                         margin-right: 4px;
@@ -196,33 +207,33 @@ export default {
                 position: relative;
                 height: 112px;
                 @include flex();
-                .header-logo {
-                    display: inline-block;
-                    width: 55px;
-                    height: 55px;
-                    background: #FF6600;
-                    a {
-                        display: inline-block;
-                        width: 110px;
-                        height: 55px;
-                        &:before {
-                            content: '';
-                            display: inline-block;
-                            @include bgImg(55px,55px,'/imgs/mi-logo.png');
-                            transition: margin .2s
-                        }
-                        &:after {
-                            content: '';
-                            display: inline-block;
-                            @include bgImg(55px,55px,'/imgs/mi-home.png');
-                        }
-                        &:hover:before{
-                            margin-left: -55px;
-                            // 动画
-                            transition: margin .2s
-                        }                        
-                    }
-                }
+                // .header-logo {
+                    // display: inline-block;
+                    // width: 55px;
+                    // height: 55px;
+                    // background: #FF6600;
+                    // a {
+                    //     display: inline-block;
+                    //     width: 110px;
+                    //     height: 55px;
+                    //     &:before {
+                    //         content: '';
+                    //         display: inline-block;
+                    //         @include bgImg(55px,55px,'/imgs/mi-logo.png');
+                    //         transition: margin .2s
+                    //     }
+                    //     &:after {
+                    //         content: '';
+                    //         display: inline-block;
+                    //         @include bgImg(55px,55px,'/imgs/mi-home.png');
+                    //     }
+                    //     &:hover:before{
+                    //         margin-left: -55px;
+                    //         // 动画
+                    //         transition: margin .2s
+                    //     }                        
+                    // }
+                // }
                 .header-menu {
                     display: inline-block;
                     width: 643px;

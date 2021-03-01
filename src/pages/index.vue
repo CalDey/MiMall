@@ -1,7 +1,6 @@
 <template>
     <div class="index">
         <div class="container">
-            <!-- 轮播图 -->
             <div class="swiper-box">
                 <div class="nav-menu">
                     <ul class="menu-wrap">
@@ -41,6 +40,7 @@
                         </li>
                     </ul>
                 </div>
+                <!-- 轮播图 -->
                 <swiper :options="swiperOption">
                     <swiper-slide v-for="(item,index) in slideList" :key="index">
                         <a :href="'/#/product/' + item.id">
@@ -55,13 +55,13 @@
             <!-- 广告位 -->
             <div class="ads-box">
                 <a :href="'/#/product/' + item.id" v-for="item in adsList" :key="item.id">
-                    <img :src="item.img" alt="">
+                    <img v-lazy="item.img" alt="">
                 </a>
             </div>
             <!-- banner -->
             <div class="banner">
                 <a href="/#/product/30">
-                    <img src="/imgs/banner-1.png" alt="">
+                    <img v-lazy="'/imgs/banner-1.png'" alt="">
                 </a>
             </div>
         </div>
@@ -71,14 +71,14 @@
                 <h2>手机</h2>
                 <div class="wrapper">
                     <div class="banner-left">
-                        <a href="/#/product/35"><img src="/imgs/mix-alpha.jpg" alt=""></a>
+                        <a href="/#/product/35"><img v-lazy="'/imgs/mix-alpha.jpg'" alt=""></a>
                     </div>
                     <div class="list-box">
                         <div class="list" v-for="(arr, j) in phoneList" :key="j">
                             <div class="item" v-for="(item, k) in arr" :key="k">
                                 <span :class="{'kill-pro':k%2==0}">秒杀</span>
                                 <div class="item-img">
-                                    <img :src="item.mainImage" alt="">
+                                    <img v-lazy="item.mainImage" alt="">
                                 </div>
                                 <div class="item-info">
                                     <h3>{{item.name}}</h3>
@@ -215,7 +215,8 @@ export default {
             ],
             // 产品
             phoneList: [],
-            showModal: false
+            showModal: false,
+            // is_Login: this.$cookie.get('userId')
         }
     },
     mounted () {
@@ -233,16 +234,18 @@ export default {
                 this.phoneList = [res.list.slice(0, 4), res.list.slice(4, 8)]
             })
         },
-        addCart() {
+        // 添加购物车
+        addCart(id) {
             this.showModal = true;
-            // this.axios.post('/carts', {
-            //     productId: id,
-            //     selected: true
-            // }).then(() => {
-
-            // }).catch(()=> {
-            //     this.showModal = true
-            // })
+            this.axios.post('/carts', {
+                productId: id,
+                selected: true
+            }).then((res) => {
+                this.showModal = true;
+                this.$store.dispatch('saveCartCount', res.cartTotalQuantity);
+            }).catch(()=> {
+                this.showModal = true
+            })
         },
         goToCart() {
             this.$router.push('/cart');

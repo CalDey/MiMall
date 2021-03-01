@@ -5,12 +5,12 @@
             <p>小米商城</p>
         </div>
         <div class="footer-link">
-            <a href="">CalDey主页</a><span></span>
-            <a href="">CalDey博客</a><span></span>
-            <a href="">CalDey Github</a><span></span>
+            <a href="">CalDey的主页</a><span></span>
+            <a href="">CalDey的博客</a><span></span>
+            <a href="">CalDey的Github</a><span></span>
             <a href="">Vue全家桶实现小米商城</a><span></span>
         </div>
-        <div class="copyright">Copyright ©2019 <span class="domain">mi.futurefe.com</span> All Rights Reserved.</div>
+        <div class="copyright">Copyright ©2021 <span class="domain">mi.futurefe.com</span> All Rights Reserved.</div>
     </div>
 </template>
 <script>
