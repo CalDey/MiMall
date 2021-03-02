@@ -60,6 +60,7 @@
                     // this.$store.dispatch('saveUserName', res.username)
                     this.saveUserName(res.username);
                     this.$router.push({
+                        // query -> get 明文传参(path), params -> post (name)
                         name: 'index',
                         params:{
                         from: 'login'
@@ -74,7 +75,7 @@
                     password: '12345678',
                     emial: 'caldey@qq.com'
                 }).then(() => {
-                    alert('注册成功');
+                    this.$message.success('注册成功');
                 })                
             }
         }

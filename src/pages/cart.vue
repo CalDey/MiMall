@@ -103,15 +103,15 @@ export default {
       updateCart(item, type) {
           let quantity = item.quantity,
               selected = item.productSelected
-          if (type === '-') {
+          if (type == '-') {
                 if (quantity == 1) {
-                    alert('至少保留一件商品');
+                    this.$message.warning('至少保留一件商品');
                     return;
                 }
                 --quantity;
-                } else if (type === '+') {
+                } else if (type == '+') {
                     if (quantity >= item.productStock) {
-                        alert('购买商品数量不能超过商品库存数量');
+                        this.$message.warning('购买商品数量不能超过商品库存数量');
                         return;
                     }
                     quantity++;
@@ -137,6 +137,7 @@ export default {
               this.itemData = {};
               this.renderData(res);
               this.showModal = false;
+              this.$message.success('删除成功');
           })
       },
       // 全选
@@ -159,7 +160,7 @@ export default {
           // 返回布尔值
           let isCheck = this.list.every(item => !item.productSelected);
           if (isCheck) {
-              alert('请选择至少一件商品');
+              this.$message.warning('请选择至少一件商品');
           } else {
               this.$router.push('/order/confirm')
           }
