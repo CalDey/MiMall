@@ -36,12 +36,17 @@ axios.interceptors.response.use(function(response) {
     Message.warning(res.msg);
     return Promise.reject(res);
   }
+  // http请求错误拦截
+}, (error) => {
+  let res = error.response;
+  Message.error(res.data.message);
+  return Promise.reject(error);
 })
 
 Vue.use(VueAxios, axios);
 Vue.use(VueCookie);
 // Vue.use(Message);
-// 解决全局弹框
+// 局部引入，解决全局弹框
 Vue.component(Message.name, Message);
 Vue.use(VueLazyLoad, {
   loading: '/imgs/loading-svg/loading-bars.svg'

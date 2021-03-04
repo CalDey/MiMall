@@ -1,19 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './pages/home'
-import Login from './pages/login'
+// import Login from './pages/login'
 import Index from './pages/index'
-import Product from './pages/product'
-import Detail from './pages/detail'
-import Cart from './pages/cart'
-import Order from './pages/order'
-import OrderList from './pages/orderList'
-import OrderConfirm from './pages/orderConfirm'
-import OrderPay from './pages/orderPay'
-import AliPay from './pages/alipay'
+// import Product from './pages/product'
+// import Detail from './pages/detail'
+// import Cart from './pages/cart'
+// import Order from './pages/order'
+// import OrderList from './pages/orderList'
+// import OrderConfirm from './pages/orderConfirm'
+// import OrderPay from './pages/orderPay'
+// import AliPay from './pages/alipay'
 
 Vue.use(Router);
 
+// 性能优化 -> 按需加载
 export default new Router({
     routes: [
         {
@@ -30,49 +31,61 @@ export default new Router({
                 {
                     path: '/product/:id',
                     name: 'product',
-                    component: Product,
+                    // component: Product,
+                    component: () => import('./pages/product.vue'),
                 },
                 {
                     path: '/detail/:id',
                     name: 'detail',
-                    component: Detail,
+                    // component: Detail,
+                    component: () => import('./pages/detail.vue'),
                 }
             ]
         },
         {
             path: '/login',
             name: 'login',
-            component: Login,            
+            // component: Login,
+            // 路由按需加载 require
+            // component: resolve => require(['./pages/login.vue'], resolve),
+            // 路由按需加载 import
+            component: () => import('./pages/login.vue')     
         },
         {
             path: '/cart',
             name: 'cart',
-            component: Cart,            
+            // component: Cart
+            component: () => import('./pages/cart.vue'),
         },
         {
             path: '/order',
             name: 'order',
-            component: Order,
+            // component: Order,
+            component: () => import('./pages/order.vue'),
             children: [
                 {
                     path: 'list',
                     name: 'order-list',
-                    component: OrderList,
+                    // component: OrderList,
+                    component: () => import('./pages/orderList.vue')
                 },
                 {
                     path: 'confirm',
                     name: 'order-confirm',
-                    component: OrderConfirm,
+                    // component: OrderConfirm,
+                    component: () => import('./pages/orderConfirm.vue')
                 },
                 {
                     path: 'pay',
                     name: 'order-pay',
-                    component: OrderPay,
+                    // component: OrderPay,
+                    component: () => import('./pages/orderPay.vue')
                 },
                 {
                     path: 'alipay',
                     name: 'alipay',
-                    component: AliPay,
+                    // component: AliPay,
+                    component: () => import('./pages/alipay.vue')
                 }
             ]            
         }
